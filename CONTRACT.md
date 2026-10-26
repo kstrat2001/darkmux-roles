@@ -20,6 +20,16 @@ A run is official when every input that shapes it is pinned or is a declared var
 
 **What hashes cannot do.** Every hash in a bundle is reported by the contributor's own machine. They catch honest mistakes and make a run's claim exact, but a modified darkmux can report an official version and the right hashes. Deliberate spoofing is caught by the site, not the bundle. evals.darkmux.com accepts only known releases, holds contributor uploads for the owner's review under its terms, and marks a run reproduced only when an independent run agrees.
 
+## Trust model
+
+Everything darkmux reports is a claim by the machine that ran it. The user owns that machine and darkmux is open source, so any value it stamps can be changed, whether in a file, in memory, or in a rebuilt binary that still reports an official version. Signing doesn't help: the key would ship in that binary. The correct hashes are public, too, so reporting the right one proves nothing.
+
+So the parts split like this:
+
+- **darkmux** stamps every value at run time, from the bytes it actually used, and writes it once into the run record. It never re-hashes at submit, which would describe the disk at submit time, not the run. This makes honest runs exact and catches drift. It does not stop a liar.
+- **The site** computes the expected values itself from the pins and compares the reported ones with them. A mismatch rejects a run; a match is only consistent with the claim. Where it can, the site re-grades from the raw answers instead of trusting a reported pass, and checks timings, throughput and power against the claimed hardware and model.
+- **Moderation and reproduction** decide what is official. A contributor's run is official only once the site's owner has approved it under the site's terms, or an independent run has reproduced it.
+
 ## 1. What the repo holds
 
 | Path | Required | What it is |
