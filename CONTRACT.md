@@ -4,6 +4,22 @@
 
 What darkmux may assume about this repo, what it must do with it, and what a run records, so that evals.darkmux.com can check a run used the official inputs. The rule (Kain, 2026-10-26): every input that shapes a run is hashed by darkmux and verified against a pinned public source. Identity is the content hash, not the location: a file byte-identical in two places is the same input.
 
+## What pins a run
+
+A run is official when every input that shapes it is pinned or is a declared variable, and the owner has approved it or it has been reproduced.
+
+| Layer | What it covers | How it is pinned |
+|---|---|---|
+| darkmux itself | Detection, grading, tool handling, prompt assembly: anything that changes with the code | The release version. Only a published release counts; a dev build or fork is never official, whatever version it reports. |
+| Roles | Role prompt, role config (`.json`), preamble | A commit of this repo (section 3). |
+| The eval | Workload, fixture files, expected answers | The fixture's commit, as now. |
+| Everything else a user can change without rebuilding | `~/.darkmux/roles/`, the preamble override, `identity.md`, workspace notes, profiles and config, env vars such as `DARKMUX_IDENTITY_PATH` | Not pinned: a lab run ignores it (section 4). |
+| Declared variables | The model, its quantization, the hardware, the runtime and its settings | Recorded, not pinned. These are what an eval compares. |
+
+**Why ignore, not hash.** Ignoring the home folder for a lab run makes local drift impossible (the stale `web-probe.md` of 2026-10-24 could not have happened). Hashing local files would only report the drift after the run.
+
+**What hashes cannot do.** Every hash in a bundle is reported by the contributor's own machine. They catch honest mistakes and make a run's claim exact, but a modified darkmux can report an official version and the right hashes. Deliberate spoofing is caught by the site, not the bundle. evals.darkmux.com accepts only known releases, holds contributor uploads for the owner's review under its terms, and marks a run reproduced only when an independent run agrees.
+
 ## 1. What the repo holds
 
 | Path | Required | What it is |
@@ -51,7 +67,7 @@ What darkmux may assume about this repo, what it must do with it, and what a run
 4. **Assemble the system prompt**, exactly as darkmux does today:
    - for a specialist role: `trim_end(preamble) + "\n\n" + role_md`;
    - for any other role family: `role_md`.
-5. **Add nothing per-machine to a pinned eval run's prompt:**
+5. **Read nothing user-configurable for a lab run** beyond the declared variables (see "What pins a run"). In the prompt that means:
    - no operator identity (`identity.md`, added today to local dispatches);
    - no workspace notes (the no-git note).
 
@@ -99,5 +115,5 @@ A pull request here makes a new commit. An eval that wants it pins the new commi
 
 1. **Skills:** they're routing only today, so they aren't hashed. If a skill ever contributes prompt text, it joins section 5.
 2. **Workspace notes:** fail the run (as proposed above), or allow a fixed, published list of notes and include them in the rebuild?
-3. **Other files a lab run reads** that shape the model's input or tools: rules, crew or mission config, profiles. darkmux#3363 lists them; each joins this contract or is shown not to apply to eval runs.
+3. **The full list of user-configurable inputs** a lab run reads today (rules, crew or mission config, profiles, env vars), each to be ignored for lab runs or named as a declared variable. Comes from an audit of darkmux.
 4. **Fetching:** `raw.githubusercontent.com` per file, or one tarball per commit?
