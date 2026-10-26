@@ -2,7 +2,7 @@
 
 The role definitions [darkmux](https://github.com/kstrat2001/darkmux) staffs its crew with (coder, reviewer, analyst and the rest), in a repo of their own so an eval can pin the exact role a run used to a commit, instead of copying it.
 
-Moved from darkmux's `templates/builtin/` at commit `9b83ee8e4640778131cdffa4a2825def21d066a3` (darkmux#3363).
+Moved from darkmux's `templates/builtin/` at commit `9b83ee8e4640778131cdffa4a2825def21d066a3` (darkmux#3363), byte for byte. `web-probe` comes from the biz-scrape-fixture eval, which carried its own copy (`roles/web-probe.*` at `701cf6a1860601ad84c624602f888e3fb3743d39`, the hashes it pins in `evals/easy.json`).
 
 ## What is here
 
@@ -13,7 +13,7 @@ Moved from darkmux's `templates/builtin/` at commit `9b83ee8e4640778131cdffa4a28
 | `skills/<id>.json` | The skills roles name, with the keywords darkmux routes by. |
 | `AUTONOMOUS_DISPATCH_PREAMBLE.md` | Prepended to every specialist role's prompt when darkmux dispatches it. Utility roles (`radio-router`) run without it. |
 
-Roles: analyst, code-reviewer, coder, crawler, design-reviewer, pr-reviewer, radio-host, radio-router, reviewer, test-designer, tool-bench.
+Roles: analyst, code-reviewer, coder, crawler, design-reviewer, pr-reviewer, radio-host, radio-router, reviewer, test-designer, tool-bench, and web-probe (a tool-less role that answers fixed questions about a website as JSON, with its `output_schema` in the manifest).
 
 ## Pinning a role
 
