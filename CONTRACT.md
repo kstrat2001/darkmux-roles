@@ -76,18 +76,27 @@ A run is official when every input that shapes it is pinned or is a declared var
 
 ## 5. What a run records (the bundle)
 
-darkmux reports; it does not judge. These fields are additive: darkmux writes what it knows, and evals.darkmux.com decides what to check and what a run counts as. A field darkmux cannot fill is `null`, never left out or guessed.
+darkmux reports; it does not judge. darkmux writes what it knows, and evals.darkmux.com decides what to check and what a run counts as. A field darkmux cannot fill is `null`, never left out or guessed.
 
-The site's parser refuses unknown keys (so nothing identifying rides along), so additive still needs a version. These go in bundle format 6, as optional fields under each run, the way format 5 added `workloadPath` and `workloadSha256`. The site learns to read format 6 and deploys first; darkmux writes 6 only after that, and only when a run carries the fields, so other bundles stay at their old version and still load. Per run:
+**Metadata is separate from measurements** (Kain, 2026-10-26). Hashes and facts about how a run was made are not metrics, so each run gets a `metadata` object beside its measurements. Measurements stay as strict as now. `metadata` is open, so darkmux can add provenance without a site deploy first, within limits that keep anything identifying out:
+
+- a key is a plain name (`[a-z][A-Za-z0-9]{0,59}`) and not a word that names a person or machine (the site's existing list: user, host, email, serial and the rest);
+- a value is `null`, true/false, a number, or a token: up to 128 characters, no whitespace, nothing that looks like a file path, such as a sha256, a version, or `owner/repo@sha`;
+- objects nest at most two levels, with a cap on the number of keys;
+- a key the site knows is checked strictly; one it doesn't know is stored and never shown, and never counts toward a run being official.
+
+`metadata` arrives once, in bundle format 6, which the site reads and deploys before darkmux writes it. After that, new provenance needs no format bump. Existing provenance fields (`darkmuxCommit`, `darkmuxBuild`, `workloadSha256`) stay where they are. Per run:
 
 ```json
-"role": {
-  "id": "coder",
-  "roles": "kstrat2001/darkmux-roles@<sha>",
-  "config": "<sha256 of roles/coder.json>",
-  "md": "<sha256 of roles/coder.md>",
-  "preamble": "<sha256 of the preamble, or null for a non-specialist role>",
-  "prompt": "<sha256 of the assembled system prompt>"
+"metadata": {
+  "role": {
+    "id": "coder",
+    "roles": "kstrat2001/darkmux-roles@<sha>",
+    "config": "<sha256 of roles/coder.json>",
+    "md": "<sha256 of roles/coder.md>",
+    "preamble": "<sha256 of the preamble, or null for a non-specialist role>",
+    "prompt": "<sha256 of the assembled system prompt>"
+  }
 }
 ```
 
