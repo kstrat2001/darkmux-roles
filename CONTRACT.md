@@ -82,11 +82,16 @@ So the parts split like this:
    - no workspace notes (the no-git note).
 
    If a run needs a workspace note to work, the eval's fixture is broken, and the run should fail rather than carry a per-machine prompt. Open question 2 covers this.
-6. **Hash the prompt** that reaches the model, at the point darkmux already captures it (`capture_assembled_system_prompt`). Record that hash.
+6. **Record it on the flow record.** darkmux's telemetry already writes a `dispatch.start` record for every dispatch, with the system prompt's length (`system_chars`), the tools requested and each runtime setting with its source (`bounds`: env, config, built-in, CLI flag, launcher). Next to those, on the same record, darkmux adds:
+   - `system_sha256`: the hash of the assembled prompt, at the point `system_chars` is taken;
+   - the role block of section 5, hashed from the bytes darkmux loaded, not re-read from disk;
+   - which additions applied: identity, workspace notes, a local role or preamble override. On a pinned lab run all of them should be off.
+
+   There is one producer, so the viewer, the envelope and the bundle can't disagree.
 
 ## 5. What a run records (the bundle)
 
-darkmux reports; it does not judge. darkmux writes what it knows, and evals.darkmux.com decides what to check and what a run counts as. A field darkmux cannot fill is `null`, never left out or guessed.
+darkmux reports; it does not judge. `lab submit` already reads each run's numbers from its flow records; it copies the fields of section 4 step 6, and the run's `bounds` with their sources, into the run's `metadata` the same way. darkmux writes what it knows, and evals.darkmux.com decides what to check and what a run counts as. A field darkmux cannot fill is `null`, never left out or guessed.
 
 **Metadata is separate from measurements** (Kain, 2026-10-26). Hashes and facts about how a run was made are not metrics, so each run gets a `metadata` object beside its measurements. Measurements stay as strict as now. `metadata` is open, so darkmux can add provenance without a site deploy first, within limits that keep anything identifying out:
 
