@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "id": "pr-reviewer",
+  "role_family": "specialist",
+  "description": "Tool-less PR code reviewer for CI: reads a unified diff provided inline and emits a structured JSON review where each finding carries a verbatim quote (`anchor`) of the line it's about — the workflow resolves that quote to a line number and posts native inline pull-request comments. No repo, no shell, no tools — pure reasoning over the given diff.",
+  "skills": [
+    "code-reviewing"
+  ],
+  "tool_palette": {
+    "allow": [],
+    "deny": [
+      "read",
+      "write",
+      "edit",
+      "exec",
+      "process",
+      "update_plan"
+    ]
+  },
+  "escalation_contract": "bail-with-explanation",
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "summary": { "type": "string" },
+      "verdict": { "type": "string", "enum": ["pass", "flag"] },
+      "findings": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "path": { "type": "string" },
+            "anchor": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+            "severity": { "type": "string", "enum": ["high", "medium", "low"] },
+            "title": { "type": "string" },
+            "detail": { "type": "string" },
+            "advice": { "type": "string" },
+            "suggestion": { "anyOf": [{ "type": "string" }, { "type": "null" }] }
+          },
+          "required": ["path", "anchor", "severity", "title", "detail", "advice", "suggestion"]
+        }
+      }
+    },
+    "required": ["summary", "verdict", "findings"]
+  }
+}

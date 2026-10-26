@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "id": "code-reviewer",
+  "role_family": "specialist",
+  "description": "Senior reviewer who reads PR diffs, identifies issues, leaves substantive comments. Reads code but doesn't write it.",
+  "skills": [
+    "code-reviewing"
+  ],
+  "tool_palette": {
+    "allow": [
+      "read",
+      "exec",
+      "update_plan"
+    ],
+    "deny": [
+      "edit",
+      "write",
+      "process"
+    ]
+  },
+  "escalation_contract": "bail-with-explanation",
+  "feedback_templates": {
+    "cycle_suspected": "[darkmux-runtime] You've called `{tool_name}` {count} times in {window_size} turns with the same arguments. Narrow the scope of your review — you've examined enough. Commit to a verdict in your final message; further reads will not change the conclusion."
+  }
+}
