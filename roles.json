@@ -6,62 +6,62 @@
   },
   "roles": {
     "analyst": {
-      "json": "dbb74891968b2d88f98ec9cf41b1eb060801aabdb013162e8d928e5dc20f5b67",
+      "config": "dbb74891968b2d88f98ec9cf41b1eb060801aabdb013162e8d928e5dc20f5b67",
       "md": "20f78c19c42ef4044c37d1e8a01a1f601e4122ec8206e451ee1ee1265675d6f1",
       "family": "specialist"
     },
     "code-reviewer": {
-      "json": "f7b620465c6ed3cefef68d78b5d5a87a48656bea1615248534cc18d021fb70bc",
+      "config": "f7b620465c6ed3cefef68d78b5d5a87a48656bea1615248534cc18d021fb70bc",
       "md": "7e9c703275ce714a8959434c96c85454ef1fb0e1ca016dfc8251a078b63c4d7d",
       "family": "specialist"
     },
     "coder": {
-      "json": "aa46b12c952bd4e8a97c641071f22e1982d7d7499bac5906232568765fb45652",
+      "config": "aa46b12c952bd4e8a97c641071f22e1982d7d7499bac5906232568765fb45652",
       "md": "ea36a1c919d4b0840dcaa89d93d39c6069109636bd9f243e773c35fa9f69b488",
       "family": "specialist"
     },
     "crawler": {
-      "json": "698b8dc31b2338c6d15993d5f66b3b7ef17cf1141dd3aaaf00a4c10379b8d003",
+      "config": "698b8dc31b2338c6d15993d5f66b3b7ef17cf1141dd3aaaf00a4c10379b8d003",
       "md": "3d65c3e86e549e75f747630caf6e009d5f0da8a881de3e98819cceaa0554fcd2",
       "family": "specialist"
     },
     "design-reviewer": {
-      "json": "13ee5587b07f007b5ed758037db46129e74b435c6cef77f9246ac1339caa35e6",
+      "config": "13ee5587b07f007b5ed758037db46129e74b435c6cef77f9246ac1339caa35e6",
       "md": "00cbf1210cbf7ba83dd415174a19870175533a7d9df375863f875ed80fbba663",
       "family": "specialist"
     },
     "pr-reviewer": {
-      "json": "efa6fb2bded07ddcc18ab8cd1046b6ce941eba70e06ca2938e01d6bb3f1a4416",
+      "config": "efa6fb2bded07ddcc18ab8cd1046b6ce941eba70e06ca2938e01d6bb3f1a4416",
       "md": "9d8ce5787d219797024ed32e5f07f35e1a6f8cb3c2e24773a9c3aa98098e3a12",
       "family": "specialist"
     },
     "radio-host": {
-      "json": "896de58471f19ac64a433474b44fb2cb9b150ed57f1907acf653d7cc01683a14",
+      "config": "896de58471f19ac64a433474b44fb2cb9b150ed57f1907acf653d7cc01683a14",
       "md": "6c2f30170ee074e3fc9f829809dc3725194a2a4e527ac7b1eba136c169abbfb5",
       "family": "specialist"
     },
     "radio-router": {
-      "json": "cc70ca40ac144b55c042695fd701aa724ea55cb32c6831ebf222bd4a68276d7c",
+      "config": "cc70ca40ac144b55c042695fd701aa724ea55cb32c6831ebf222bd4a68276d7c",
       "md": "38e34fe589308ad0954cd74f2998b414c9d4dbae939b7123c58b1b0ce54dbde4",
       "family": "utility"
     },
     "reviewer": {
-      "json": "a719f622d73364c78fff946706abc7e16f157ce8cddd1a89cb06ccf73191af2a",
+      "config": "a719f622d73364c78fff946706abc7e16f157ce8cddd1a89cb06ccf73191af2a",
       "md": "97875c458e6eeb50393ec069c5f479550e42d1a983047a58a52961116119e14d",
       "family": "specialist"
     },
     "test-designer": {
-      "json": "f3605ccb8cd7948da9df8cede9c951c796fae2d4949a4b8787ec2fccfdfbe267",
+      "config": "f3605ccb8cd7948da9df8cede9c951c796fae2d4949a4b8787ec2fccfdfbe267",
       "md": "91e44de8feaf071f133b7b0dd525d575ea9d04f8d0e41ac7361d7c447ba5f3c1",
       "family": "specialist"
     },
     "tool-bench": {
-      "json": "a0477c6ed55bdd02449848c5f245f510d6836180202253c4e4b317317b89a0fe",
+      "config": "a0477c6ed55bdd02449848c5f245f510d6836180202253c4e4b317317b89a0fe",
       "md": "cc2447bbaf323dbe7b96e30ae9fb7205a97d5c1e802e26d7650ed018f1dcdffe",
       "family": "specialist"
     },
     "web-probe": {
-      "json": "553e7d60c5bc01d1c5328dcbff97727a51d461a1e6f419475f55d67aacd37320",
+      "config": "553e7d60c5bc01d1c5328dcbff97727a51d461a1e6f419475f55d67aacd37320",
       "md": "8f387e8607bec63e3cb293989fffad7df7442153fb2b7d7583246de2da78d670",
       "family": "specialist"
     }

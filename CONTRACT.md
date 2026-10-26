@@ -8,7 +8,7 @@ What darkmux may assume about this repo, what it must do with it, and what a run
 
 | Path | Required | What it is |
 |---|---|---|
-| `roles/<id>.json` | yes | Role manifest. `id` equals the file name; `schema_version` is the role schema darkmux reads. |
+| `roles/<id>.json` | yes | The role's config: family, tool palette, output schema, skills, escalation contract. `id` equals the file name; `schema_version` is the role schema darkmux reads. |
 | `roles/<id>.md` | yes | Role prompt, UTF-8. |
 | `AUTONOMOUS_DISPATCH_PREAMBLE.md` | yes | One preamble for every specialist role. |
 | `skills/<id>.json` | when a role names the skill | Routing metadata (keywords). Not part of any prompt. |
@@ -23,8 +23,8 @@ What darkmux may assume about this repo, what it must do with it, and what a run
   "contract": 1,
   "preamble": { "path": "AUTONOMOUS_DISPATCH_PREAMBLE.md", "sha256": "…" },
   "roles": {
-    "coder": { "json": "…sha256…", "md": "…sha256…", "family": "specialist" },
-    "web-probe": { "json": "…", "md": "…", "family": "specialist" }
+    "coder": { "config": "…sha256…", "md": "…sha256…", "family": "specialist" },
+    "web-probe": { "config": "…", "md": "…", "family": "specialist" }
   }
 }
 ```
@@ -66,14 +66,14 @@ Per run, in a new bundle format version:
 "role": {
   "id": "coder",
   "roles": "kstrat2001/darkmux-roles@<sha>",
-  "json": "<sha256 of roles/coder.json>",
+  "config": "<sha256 of roles/coder.json>",
   "md": "<sha256 of roles/coder.md>",
   "preamble": "<sha256 of the preamble, or null for a non-specialist role>",
   "prompt": "<sha256 of the assembled system prompt>"
 }
 ```
 
-evals.darkmux.com reads the three files at the pinned commit, checks them against `json`, `md` and `preamble`, rebuilds the prompt by section 4, and checks it against `prompt`. A run counts as official only if all four match.
+evals.darkmux.com reads the three files at the pinned commit, checks them against `config`, `md` and `preamble`, rebuilds the prompt by section 4, and checks it against `prompt`. A run counts as official only if all four match.
 
 ## 6. darkmux releases
 
