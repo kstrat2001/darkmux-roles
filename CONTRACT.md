@@ -18,7 +18,7 @@ No run is "official". A run can be accepted, through Darkly Energized's review, 
 
 **Why ignore, not hash.** Ignoring the home folder for a lab run makes local drift impossible (the stale `web-probe.md` of 2026-10-24 could not have happened). Hashing local files would only report the drift after the run.
 
-**What hashes cannot do.** Every hash in a bundle is reported by the contributor's own machine. They catch honest mistakes and make a run's claim exact, but a modified darkmux can report an official version and the right hashes. Deliberate spoofing is caught by the site, not the bundle. evals.darkmux.com accepts only known releases, holds contributor uploads for the owner's review under its terms, and marks a run reproduced only when an independent run agrees.
+**What hashes cannot do.** Every hash in a bundle is reported by the contributor's own machine. They catch honest mistakes and make a run's claim exact, but a modified darkmux can report an official version and the right hashes. Deliberate spoofing is caught by the site, not the bundle. evals.darkmux.com accepts only known releases and holds contributor uploads for Darkly Energized's review under its terms.
 
 ## Trust model
 
