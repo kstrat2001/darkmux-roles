@@ -76,7 +76,9 @@ A run is official when every input that shapes it is pinned or is a declared var
 
 ## 5. What a run records (the bundle)
 
-Per run, in a new bundle format version:
+darkmux reports; it does not judge. These fields are additive: darkmux writes what it knows, and evals.darkmux.com decides what to check and what a run counts as. A field darkmux cannot fill is `null`, never left out or guessed.
+
+The site's parser refuses unknown keys (so nothing identifying rides along), so additive still needs a version. These go in bundle format 6, as optional fields under each run, the way format 5 added `workloadPath` and `workloadSha256`. The site learns to read format 6 and deploys first; darkmux writes 6 only after that, and only when a run carries the fields, so other bundles stay at their old version and still load. Per run:
 
 ```json
 "role": {
@@ -89,7 +91,7 @@ Per run, in a new bundle format version:
 }
 ```
 
-evals.darkmux.com reads the three files at the pinned commit, checks them against `config`, `md` and `preamble`, rebuilds the prompt by section 4, and checks it against `prompt`. A run counts as official only if all four match.
+What the site does with them (its side, not darkmux's): it reads the three files at the pinned commit, checks them against `config`, `md` and `preamble`, rebuilds the prompt by section 4, and checks it against `prompt`. A run whose four match shows as using the pinned role. One that doesn't, or doesn't report them, can't be official. The site also requires `darkmuxBuild: "release"` (already in the bundle since format 3) and a known release version.
 
 ## 6. darkmux releases
 
