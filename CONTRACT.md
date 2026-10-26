@@ -87,7 +87,9 @@ Runs from before the pin (darkmux 5.6.0 and 5.7.0) are verified from what was of
 - `coder`: from darkmux's `templates/builtin/` at the run's release commit;
 - `web-probe`: from the copy the biz-scrape-fixture eval pins in `evals/easy.json`.
 
-Both are byte-identical to this repo's first commits, so evals.darkmux.com can record those runs' hashes and point them here. These are marked "verified from release", since darkmux did not report them.
+Both are byte-identical to this repo's first commits, so evals.darkmux.com can record those hashes and point those runs here.
+
+That proves only which files were official, not what the model saw. darkmux up to 5.7.1 reads `~/.darkmux/roles/<id>.md` before its built-in copy, never reads the fixture's role, and records no prompt hash. On 2026-10-24 a stale `~/.darkmux/roles/web-probe.md` (sha `b0438c…`) silently replaced the pinned one for 19 biz-scrape runs (darkmux#3363). So a backfilled run is marked "official files, prompt not reported", never "verified". Only a run that reports the four hashes in section 5 counts as verified.
 
 ## 8. Changing a role
 
