@@ -6,11 +6,11 @@ What darkmux may assume about this repo, what it must do with it, and what a run
 
 ## What pins a run
 
-A run is official when every input that shapes it is pinned or is a declared variable, and the owner has approved it or it has been reproduced.
+No run is "official". A run can be accepted, through Darkly Energized's review, only when every input that shapes it is pinned or is a declared variable. Accepted data may still be faulty: the site does not guarantee perfect data, and aims to be transparent and correct (Kain, 2026-10-26).
 
 | Layer | What it covers | How it is pinned |
 |---|---|---|
-| darkmux itself | Detection, grading, tool handling, prompt assembly: anything that changes with the code | The release version. Only a published release counts; a dev build or fork is never official, whatever version it reports. |
+| darkmux itself | Detection, grading, tool handling, prompt assembly: anything that changes with the code | The release version. Only a published release counts; a dev build or fork is never accepted, whatever version it reports. |
 | Roles | Role prompt, role config (`.json`), preamble | A commit of this repo (section 3). |
 | The eval | Workload, fixture files, expected answers | The fixture's commit, as now. |
 | Everything else a user can change without rebuilding | `~/.darkmux/roles/`, the preamble override, `identity.md`, workspace notes, profiles and config, env vars such as `DARKMUX_IDENTITY_PATH` | Not pinned: a lab run ignores it (section 4). |
@@ -28,7 +28,7 @@ So the parts split like this:
 
 - **darkmux** stamps every value at run time, from the bytes it actually used, and writes it once into the run record. It never re-hashes at submit, which would describe the disk at submit time, not the run. This makes honest runs exact and catches drift. It does not stop a liar.
 - **The site** computes the expected values itself from the pins and compares the reported ones with them. A mismatch rejects a run; a match is only consistent with the claim. Where it can, the site re-grades from the raw answers instead of trusting a reported pass, and checks timings, throughput and power against the claimed hardware and model.
-- **Moderation and reproduction** decide what is official. A contributor's run is official only once the site's owner has approved it under the site's terms, or an independent run has reproduced it.
+- **Darkly Energized's review** decides what is accepted. A contributor's run is shown only once it has been accepted under the site's terms. Accepting a run is a judgement that it looks sound, not a guarantee that its data is correct; the site's disclaimer says so. Reproduction by an independent run is not part of this yet, until what it means is settled.
 
 ## 1. What the repo holds
 
@@ -98,7 +98,7 @@ darkmux reports; it does not judge. `lab submit` already reads each run's number
 - a key is a plain name (`[a-z][A-Za-z0-9]{0,59}`) and not a word that names a person or machine (the site's existing list: user, host, email, serial and the rest);
 - a value is `null`, true/false, a number, or a token: up to 128 characters, no whitespace, nothing that looks like a file path, such as a sha256, a version, or `owner/repo@sha`;
 - objects nest at most two levels, with a cap on the number of keys;
-- a key the site knows is checked strictly; one it doesn't know is stored and never shown, and never counts toward a run being official.
+- a key the site knows is checked strictly; one it doesn't know is stored and never shown, and never counts toward a run being accepted.
 
 `metadata` arrives once, in bundle format 6, which the site reads and deploys before darkmux writes it. After that, new provenance needs no format bump. Existing provenance fields (`darkmuxCommit`, `darkmuxBuild`, `workloadSha256`) stay where they are. Per run:
 
@@ -115,7 +115,7 @@ darkmux reports; it does not judge. `lab submit` already reads each run's number
 }
 ```
 
-What the site does with them (its side, not darkmux's): it reads the three files at the pinned commit, checks them against `config`, `md` and `preamble`, rebuilds the prompt by section 4, and checks it against `prompt`. A run whose four match shows as using the pinned role. One that doesn't, or doesn't report them, can't be official. The site also requires `darkmuxBuild: "release"` (already in the bundle since format 3) and a known release version.
+What the site does with them (its side, not darkmux's): it reads the three files at the pinned commit, checks them against `config`, `md` and `preamble`, rebuilds the prompt by section 4, and checks it against `prompt`. A run whose four match shows as using the pinned role. One that doesn't, or doesn't report them, can't be accepted. The site also requires `darkmuxBuild: "release"` (already in the bundle since format 3) and a known release version.
 
 ## 6. darkmux releases
 
